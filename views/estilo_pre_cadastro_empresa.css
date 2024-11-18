@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #c0392b; /* Vermelho */
+}
+
+h2 {
+    color: #c0392b; /* Vermelho */
+}
+
+h3 {
+    color: #fff; /* Branco para o título do card */
+}
+
+p {
+    color: #555;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.info-text {
+    flex: 1;
+    margin-right: 20px;
+}
+
+form {
+    flex: 1;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #c0392b; /* Vermelho */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #a93226; /* Vermelho mais escuro */
+}
+
+#message {
+    text-align: center;
+    margin-top: 20px;
+    color: #28a745; /* Verde para mensagens de sucesso */
+}
+
+.faq-container {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.faq-item {
+    background-color: #c0392b; /* Vermelho */
+    color: #fff; /* Branco para o texto */
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+}
+
+.faq-item:hover {
+    transform: scale(1.02); /* Efeito de hover */
+}
+
+.faq-item h3 {
+    margin: 0;
+}
+
+.faq-item p {
+    margin-top: 5px;
+    color: #f9f9f9; /* Um tom mais claro de branco para o texto */
+}
