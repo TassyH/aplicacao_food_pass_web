@@ -46,6 +46,36 @@
             <button id="enviarButton">Enviar</button>
         </div>
     </div>
+
+    <div id="container_att">
+        <h1>Atualização mensal do saldo VR Funcionários</h1>
+        <p>Selecione uma planilha CSV para importar os funcionários que serão atualizados.</p>
+        
+        <input type="file" id="fileInputAtt" accept=".csv">
+        <button id="importAttButton">Importar</button>
+
+        <table id="funcionariosTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Código Empresa Responsavel</th>
+                    <th>Saldo</th>
+                    <th>Ações</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="tableBodyAtt">
+                <!-- Funcionários importados aparecerão aqui -->
+            </tbody>
+        </table>
+
+        <div class="total-container">
+            <h2>Valor Total: <span id="valorTotalAtt">R$ 0,00</span></h2>
+            <button id="enviarAttButton">Enviar</button>
+        </div>
+    </div>
+
     <script type="module" src="../CONTROLER/script_importar_funcionario.js"></script>
 </body>
 </html>

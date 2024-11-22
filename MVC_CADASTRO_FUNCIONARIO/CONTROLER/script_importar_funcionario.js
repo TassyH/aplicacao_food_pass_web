@@ -125,3 +125,111 @@ document.getElementById('importButton').addEventListener('click', function() {
     reader.readAsText(file);
 });
 
+document.getElementById('importAttButton').addEventListener('click', function() {
+    const fileInput = document.getElementById('fileInputAtt');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert('Por favor, selecione um arquivo CSV.');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const csvData = event.target.result;
+        const rows = csvData.split('\n').slice(1); 
+        const tableBody = document.getElementById('tableBodyAtt');
+        console.log("Iniciando a leitura do arquivo CSV...");        
+        tableBody.innerHTML = ''; 
+        let totalSaldo = 0;
+        const funcionarios = [];
+
+        rows.forEach(row => {
+            if (row.trim()) {
+                const columns = row.split(',').map(col => col.trim()); 
+
+                if (columns.length === 4) {
+                    const nome = columns[0]; // nome
+                    const cpf = columns[1]; // cpf
+                    const codEmpresa = columns[2]; // codEmpresa
+                    const saldo = parseFloat(columns[3]) || 0; // saldo
+
+                    const attFuncionario = {
+                        nome: nome,
+                        cpf: cpf,
+                        codEmpresa: codEmpresa,
+                        saldo: saldo
+                    };
+
+                    funcionarios.push(attFuncionario);
+
+
+                    totalSaldo += saldo; 
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                    <td>${nome}</td>
+                    <td>${cpf}</td>
+                    <td>${codEmpresa}</td>
+                    <td>R$ ${saldo.toFixed(2)}</td>
+                    <td><button class="deleteButton" data-saldo="${saldo}">Excluir</button></td>
+                    `;
+                    tableBody.appendChild(newRow);
+                } else {
+                    console.log("Linha ignorada (não possui 15 colunas):", row);
+                }
+            }
+        });
+
+        document.getElementById('valorTotalAtt').innerText = `R$ ${totalSaldo.toFixed(2)}`;
+        console.log("Leitura do arquivo concluída.");
+        console.log(rows);
+
+         const deleteButtons = document.querySelectorAll('.deleteButton');
+         deleteButtons.forEach(button => {
+             button.addEventListener('click', function() {
+                 const row = this.parentNode.parentNode; 
+                 const saldo = parseFloat(this.getAttribute('data-saldo')); 
+                 row.parentNode.removeChild(row); 
+                 totalSaldo -= saldo; 
+                 document.getElementById('valorTotalAtt').innerText = `R$ ${totalSaldo.toFixed(2)}`;
+
+             });
+         });
+
+         const enviarButton = document.getElementById('enviarAttButton');
+         if (enviarButton) {
+             enviarButton.addEventListener('click', async function() {
+                 if (funcionarios.length === 0) {
+                     alert('Nenhum funcionário para enviar.');
+                     return;
+                 }
+
+                 try {
+                    const response = await fetch('http://localhost:3002/atualiza/saldo/cliente', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(funcionarios)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Erro ao enviar os dados: ' + response.statusText);
+                    }
+
+                    const result = await response.json();
+                    console.log('Dados enviados com sucesso:', result);
+                    alert('Funcionários enviados e atualizados com sucesso!');
+                } catch (error) {
+                    console.error('Erro ao enviar os dados para atualização:', error);
+                    alert('Ocorreu um erro ao enviar os dados. Tente novamente.');
+                }
+            });
+        } else {
+            console.error('Botão "Enviar" não encontrado no DOM.');
+        }
+    };
+
+    reader.readAsText(file);
+});
+

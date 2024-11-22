@@ -1,6 +1,6 @@
 
 class Funcionario {
-    constructor(nome, email, cpf, dataNascimento, ativo, dataInclusao, logradouro, bairro, cidade, estado, cep, celular, id_empresa, dataValidadeVR, saldo) {
+    constructor(nome, email, cpf, dataNascimento, ativo, dataInclusao, logradouro, bairro, cidade, estado, cep, celular, codEmpresa, dataValidadeVR, saldo) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
@@ -13,10 +13,19 @@ class Funcionario {
         this.estado = estado;
         this.cep = cep;
         this.celular = celular;
-        this.id_empresa = id_empresa;
+        this.codEmpresa = codEmpresa;
         this.dataValidadeVR = dataValidadeVR;
         this.saldo = saldo;
     }
+
+    atualizaFuncionario(nome, cpf, codEmpresa, saldo){
+        this.nome = nome;
+        this.cpf = cpf;
+        this.codEmpresa = codEmpresa;
+        this.saldo = saldo;
+    }
+
+   
 }
 
 export default Funcionario;
