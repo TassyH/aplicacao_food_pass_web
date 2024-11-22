@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo_importar_funcionario.css">
+    <title>Importar Funcionários</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Importar Funcionários</h1>
+        <p>Selecione uma planilha CSV para importar os funcionários.</p>
+        
+        <input type="file" id="fileInput" accept=".csv">
+        <button id="importButton">Importar</button>
+
+        <table id="funcionariosTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>CPF</th>
+                    <th>Data de Nascimento</th>
+                    <th>Status</th>
+                    <th>Data de Inclusão</th>
+                    <th>Logradouro</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
+                    <th>CEP</th>
+                    <th>Celular</th>
+                    <th>Código Empresa Responsavel</th>
+                    <th>Data de Validade VR</th>
+                    <th>Saldo</th>
+                    <th>Ações</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Funcionários importados aparecerão aqui -->
+            </tbody>
+        </table>
+
+        <div class="total-container">
+            <h2>Valor Total: <span id="valorTotal">R$ 0,00</span></h2>
+            <button id="enviarButton">Enviar</button>
+        </div>
+    </div>
+    <script type="module" src="../CONTROLER/script_importar_funcionario.js"></script>
+</body>
+</html>

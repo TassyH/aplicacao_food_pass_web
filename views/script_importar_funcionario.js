@@ -15,6 +15,7 @@ document.getElementById('importButton').addEventListener('click', function() {
         console.log("Iniciando a leitura do arquivo CSV...");        
         tableBody.innerHTML = ''; 
         let totalSaldo = 0;
+        const funcionarios = [];
 
         rows.forEach(row => {
             if (row.trim()) {
@@ -36,6 +37,24 @@ document.getElementById('importButton').addEventListener('click', function() {
                     const id_empresa = columns [12];
                     const dataValidadeVR = columns[13];
                     const saldo = parseFloat(columns[14]) || 0; 
+
+                    funcionarios.push({ 
+                        nome,
+                        email,
+                        cpf,
+                        dataNascimento,
+                        ativo,
+                        dataInclusao,
+                        logradouro,
+                        bairro,
+                        cidade,
+                        estado,
+                        cep,
+                        celular,
+                        id_empresa,
+                        dataValidadeVR,
+                        saldo
+                    });
 
                     totalSaldo += saldo; 
                     const newRow = document.createElement('tr');
@@ -81,13 +100,32 @@ document.getElementById('importButton').addEventListener('click', function() {
              });
          });
 
+        document.getElementById('enviarButton').addEventListener('click', function() {
+
+            fetch('URL_DA_SUA_API', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(funcionarios) 
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erro na requisição: ' + response.statusText);
+            })
+            .then(data => {
+                console.log('Funcionários cadastrados com sucesso:', data);
+                alert('Funcionários cadastrados com sucesso!');
+            })
+            .catch(error => {
+                console.error('Erro ao cadastrar funcionários:', error);
+                alert('Erro ao cadastrar funcionários. Tente novamente.');
+            });
+        });
     };
 
     reader.readAsText(file);
 });
 
-//document.getElementById('enviarButton').addEventListener('click', function(){
-
-
-
-//});
