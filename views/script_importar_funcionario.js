@@ -10,30 +10,49 @@ document.getElementById('importButton').addEventListener('click', function() {
     const reader = new FileReader();
     reader.onload = function(event) {
         const csvData = event.target.result;
-        const rows = csvData.split('\n').slice(1); // Ignora o cabeçalho
+        const rows = csvData.split('\n').slice(1); 
         const tableBody = document.getElementById('tableBody');
         console.log("Iniciando a leitura do arquivo CSV...");        
-        tableBody.innerHTML = ''; // Limpa a tabela antes de adicionar novos dados
+        tableBody.innerHTML = ''; 
         let totalSaldo = 0;
 
         rows.forEach(row => {
-            // Verifica se a linha não está vazia
             if (row.trim()) {
-                const columns = row.split(',').map(col => col.trim()); // Remove espaços em branco
+                const columns = row.split(',').map(col => col.trim()); 
 
-                // Verifica se a linha tem 4 colunas
-                if (columns.length === 4) {
+                if (columns.length === 15) {
                     const nome = columns[0];
-                    const cpf = columns[1];
-                    const dataValidadeVR = columns[2];
-                    const saldo = parseFloat(columns[3]) || 0; // Converte para número
+                    const email = columns [1]
+                    const cpf = columns[2];
+                    const dataNascimento = columns [3];
+                    const ativo = columns [4];
+                    const dataInclusao = columns [5];
+                    const logradouro = columns [6];
+                    const bairro = columns [7];
+                    const cidade = columns [8];
+                    const estado = columns [9];
+                    const cep = columns [10];
+                    const celular = columns [11];
+                    const id_empresa = columns [12];
+                    const dataValidadeVR = columns[13];
+                    const saldo = parseFloat(columns[14]) || 0; 
 
-                    totalSaldo += saldo; // Soma o saldo ao total
-
+                    totalSaldo += saldo; 
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <td>${nome}</td>
+                        <td>${email}</td>
                         <td>${cpf}</td>
+                        <td>${dataNascimento}</td>
+                        <td>${ativo}</td>
+                        <td>${dataInclusao}</td>
+                        <td>${logradouro}</td>
+                        <td>${bairro}</td>
+                        <td>${cidade}</td>
+                        <td>${estado}</td>
+                        <td>${cep}</td>
+                        <td>${celular}</td>
+                        <td>${id_empresa}</td>
                         <td>${dataValidadeVR}</td>
                         <td>R$ ${saldo.toFixed(2)}</td>
                         <td><button class="deleteButton" data-saldo="${saldo}">Excluir</button></td>
@@ -46,11 +65,10 @@ document.getElementById('importButton').addEventListener('click', function() {
             }
         });
 
-        // Atualiza o valor total na tela
         document.getElementById('valorTotal').innerText = `R$ ${totalSaldo.toFixed(2)}`;
         console.log("Leitura do arquivo concluída.");
+        console.log(rows);
 
-         // Adiciona evento de exclusão para os botões
          const deleteButtons = document.querySelectorAll('.deleteButton');
          deleteButtons.forEach(button => {
              button.addEventListener('click', function() {
@@ -67,3 +85,9 @@ document.getElementById('importButton').addEventListener('click', function() {
 
     reader.readAsText(file);
 });
+
+//document.getElementById('enviarButton').addEventListener('click', function(){
+
+
+
+//});
